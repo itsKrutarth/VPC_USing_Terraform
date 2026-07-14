@@ -14,14 +14,16 @@ resource "aws_internet_gateway" "tf_igw" {
   tags = merge(var.tags, {Name = "tf_igw", owner = "Krutarth Patel"})
 }
 
-resource "aws_subnet" "public_subnet_tf" {
+resource "aws_subnet" "public_subnet_1_tf" {
   vpc_id = aws_vpc.vpc_tf_dev.id
-  cidr_block = local.pubic_subnets
+  cidr_block = local.pubic_subnets[0]
   tags = merge(var.tags, {Name = "tf_pub_sunet", owner = "Krutarth Patel"})
+  availability_zone = local.azs[0]
 }
 
-resource "aws_subnet" "private_subnet_tf" {
+resource "aws_subnet" "private_subnet_1_tf" {
   vpc_id = aws_vpc.vpc_tf_dev.id
-  cidr_block = local.private_subnets
+  cidr_block = local.private_subnets[0]
   tags = merge(var.tags, {Name = "tf_private_sunet", owner = "Krutarth Patel"})
+  availability_zone = local.azs[0]
 }
