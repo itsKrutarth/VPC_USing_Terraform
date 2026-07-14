@@ -11,11 +11,11 @@ resource "aws_vpc" "vpc_tf_dev" {
 
 resource "aws_internet_gateway" "tf_igw" {
   vpc_id = aws_vpc.vpc_tf_dev.id
-  tags = merge(vars.tags, {Name = "tf_igw", owner = "Krutarth Patel"})
+  tags = merge(var.tags, {Name = "tf_igw", owner = "Krutarth Patel"})
 }
 
 resource "aws_subnet" "public_subnet_tf" {
   vpc_id = aws_vpc.vpc_tf_dev.id
   cidr_block = local.pubic_subnets
-  tags = merge(vars.tags, {Name = "tf_pub_sunet", owner = "Krutarth Patel"})
+  tags = merge(var.tags, {Name = "tf_pub_sunet", owner = "Krutarth Patel"})
 }
