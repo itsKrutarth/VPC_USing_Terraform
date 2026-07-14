@@ -37,7 +37,7 @@ resource "aws_subnet" "public_subnet_2_tf" {
 }
 
 resource "aws_subnet" "private_subnet_2_tf" {
-  vpc_id = vpc.vpc_tf_dev.id
+  vpc_id = aws_vpc.vpc_tf_dev.id
   cidr_block = local.private_subnets[1]
   availability_zone = local.azs[1]
   tags = merge(var.tags, {Name = "tf_private_subnet_2", owner = "Krutarth Patel"})
