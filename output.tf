@@ -8,8 +8,8 @@ output "vpc_id" {
 }
 
 
-output "azs" {
-  value = [for x in local.azs : x]
+output "public_subnets_map" {
+  value = {for x, id in local.azs : x => local.public_subnets.ids}
 }
 
 output "pub_subnets" {
