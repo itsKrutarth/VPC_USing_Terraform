@@ -30,6 +30,18 @@ resource "aws_subnet" "private_tf" {
   tags = merge(var.tags, {Name = "private_tf_${each.key}", owner = "Krutarth Patel"})
 }
 
+# elastic ip
+resource "aws_eip" "elastic_ip_tf" {
+  tags = merge(var.tags, {Name = "nat_tf", owner = "Krutarth Patel"})
+}
+
+resource "aws_nat_gateway" "tf_nat_gateway" {
+    allocation_id = aws_eip.elastic_ip_tf.id
+    subnet_id = values(aws_subnet.public_tf).id
+    tags = merge(var.tags, {Name = "tf_nat", owner = "Krutarth Patel"})
+    depends_on = [ aws_internet_gateway.tf_igw ]
+}
+
 
 # resource "aws_subnet" "public_subnet_1_tf" {
 #   vpc_id = aws_vpc.vpc_tf_dev.id
