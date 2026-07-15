@@ -37,7 +37,7 @@ resource "aws_eip" "elastic_ip_tf" {
 
 resource "aws_nat_gateway" "tf_nat_gateway" {
     allocation_id = aws_eip.elastic_ip_tf.id
-    subnet_id = values(aws_subnet.public_tf).id
+    subnet_id = values(aws_subnet.public_tf[0]).id
     tags = merge(var.tags, {Name = "tf_nat", owner = "Krutarth Patel"})
     depends_on = [ aws_internet_gateway.tf_igw ]
 }
