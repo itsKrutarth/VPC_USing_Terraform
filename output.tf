@@ -7,6 +7,9 @@ output "vpc_id" {
   value = aws_vpc.vpc_tf_dev.id
 }
 
+output "aws_region" {
+  value = var.aws_region
+}
 
 output "public_subnets_map" {
   value = {for az, subnet in aws_subnet.public_tf : az => subnet.id}
