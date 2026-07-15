@@ -66,7 +66,7 @@ resource "aws_route_table" "tf_route_table_private" {
 }
 
 resource "aws_route" "tf_route_private" {
-    route_table_id = aws_route.tf_route_private.id
+    route_table_id = aws_route.tf_route_table_private.id
     destination_cidr_block = "0.0.0.0/0"
     nat_gateway_id = aws_nat_gateway.tf_nat_gateway.id
 }
