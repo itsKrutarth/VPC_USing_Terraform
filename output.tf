@@ -9,7 +9,7 @@ output "vpc_id" {
 
 
 output "public_subnets_map" {
-  value = {for x, id in local.azs : x => local.public_subnets.ids}
+  value = {for az, subnet in aws_subnet.public_tf : az => subnet.id}
 }
 
 output "pub_subnets" {
