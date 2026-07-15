@@ -13,9 +13,9 @@ output "public_subnets_map" {
 }
 
 output "pub_subnets" {
-  value = {for x, id in local.public_subnets : x => local.public_subnets.id}
+  value = {for x, id in local.public_subnets : x => aws_subnet.public_tf.value.id}
 }
 
 output "private_subnets" {
-  value = {for x, id in local.private_subnets : x => local.private_subnets.id}
+  value = {for x, id in local.private_subnets : x => aws_subnet.private_tf.value.id}
 }
