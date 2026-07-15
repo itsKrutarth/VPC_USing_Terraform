@@ -15,7 +15,7 @@ resource "aws_internet_gateway" "tf_igw" {
 }
 
 resource "aws_subnet" "public_tf" {
-  for_each = { for idx, az in local.azs : az => local.pubic_subnets[idx] }
+  for_each = { for idx, az in local.azs : az => local.public_subnets[idx] }
   vpc_id = aws_vpc.vpc_tf_dev.id
   cidr_block = each.value
   availability_zone = each.key
@@ -44,10 +44,10 @@ resource "aws_nat_gateway" "tf_nat_gateway" {
 
 resource "aws_route_table" "tf_route_table_public" {
     vpc_id = aws_vpc.vpc_tf_dev.id
-    route = {
+    route = [{
         cidr_block = "0.0.0.0/0"
         gateway_id = aws_internet_gateway.tf_igw.id
-    }
+    }]
     tags = merge(var.tags, {Name = "tf_route_table_pub", owner = "Krutarth Patel"})
 }
 
@@ -60,10 +60,10 @@ resource "aws_route_table_association" "pub_rt_association_tf" {
 
 resource "aws_route_table" "tf_route_table_private" {
     vpc_id = aws_vpc.vpc_tf_dev.id
-    route = {
+    route = [{
         cidr_block = "0.0.0.0/0"
         nat_gateway_id = aws_nat_gateway.tf_nat_gateway.id
-    }
+    }]
     tags = merge(var.tags, {Name = "tf_route_table_private", owner = "Krutarth Patel"})
 }
 
