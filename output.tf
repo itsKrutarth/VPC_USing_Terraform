@@ -5,7 +5,7 @@ output "azs" {
 }
 
 output "pub_subnets" {
-  value = [for x in local.pubic_subnets : x]
+  value = [for x in local.public_subnets : x]
 }
 
 output "private_subnets" {
