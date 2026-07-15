@@ -42,6 +42,36 @@ resource "aws_nat_gateway" "tf_nat_gateway" {
     depends_on = [ aws_internet_gateway.tf_igw ]
 }
 
+resource "aws_route_table" "tf_route_table_public" {
+    vpc_id = aws_vpc.vpc_tf_dev.id
+    route = {
+        cidr_block = "0.0.0.0/0"
+        gateway_id = aws_internet_gateway.tf_igw.id
+    }
+    tags = merge(var.tags, {Name = "tf_route_table_pub", owner = "Krutarth Patel"})
+}
+
+resource "aws_route_table_association" "pub_rt_association_tf" {
+    for_each = aws_subnet.public_tf
+    subnet_id = each.value.id
+    route_table_id = aws_route_table.tf_route_table_public.id
+    # tags = merge(var.tags, {Name = "tf_route_table_association_${each.key}", owner = "Krutarth Patel"})
+}
+
+resource "aws_route_table" "tf_route_table_private" {
+    vpc_id = aws_vpc.vpc_tf_dev.id
+    route = {
+        cidr_block = "0.0.0.0/0"
+        nat_gateway_id = aws_nat_gateway.tf_nat_gateway.id
+    }
+    tags = merge(var.tags, {Name = "tf_route_table_private", owner = "Krutarth Patel"})
+}
+
+resource "aws_route_table_association" "private_rt_association_tf" {
+    for_each = aws_subnet.private_tf
+    subnet_id = each.value.id
+    route_table_id = aws_route_table.tf_route_table_private.id 
+}
 
 # resource "aws_subnet" "public_subnet_1_tf" {
 #   vpc_id = aws_vpc.vpc_tf_dev.id
