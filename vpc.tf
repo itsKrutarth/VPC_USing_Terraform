@@ -19,7 +19,7 @@ resource "aws_subnet" "public_tf" {
   vpc_id = aws_vpc.vpc_tf_dev.id
   cidr_block = each.value
   availability_zone = each.key
-  tags = merge(var.tags, {Name = "pub_tf_${each.key}", owner = "Krutarth Patel"})
+  tags = merge(var.tags, {Name = "pub_tf_${each.key}", Tier = "public", owner = "Krutarth Patel"})
 }
 
 resource "aws_subnet" "private_tf" {
@@ -27,7 +27,7 @@ resource "aws_subnet" "private_tf" {
   vpc_id = aws_vpc.vpc_tf_dev.id
   cidr_block = each.value
   availability_zone = each.key
-  tags = merge(var.tags, {Name = "private_tf_${each.key}", owner = "Krutarth Patel"})
+  tags = merge(var.tags, {Name = "private_tf_${each.key}", Tier = "private", owner = "Krutarth Patel"})
 }
 
 # elastic ip
