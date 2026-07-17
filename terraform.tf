@@ -6,11 +6,15 @@ terraform {
         source = "hashicorp/aws"
         version = ">=6.0"
     }
+    random = {
+      source = "hashicorp/random"
+      version = ">=3.0"
+    }
   }
 
   # remote backend
   backend "s3" {
-  bucket = "tf-bucket-backend-prov-mjemfm"
+  bucket = "my-tf-test-first-bucket-hhhhl7"
   key = "vpc/dev/terraform.tfstate"
   region = "us-east-2"
   use_lockfile = true

@@ -77,6 +77,22 @@ resource "aws_route_table_association" "private_rt_association_tf" {
     route_table_id = aws_route_table.tf_route_table_private.id 
 }
 
+resource "random_string" "randstr" {
+  length = 6
+  special = false
+  upper = false
+}
+
+resource "aws_s3_bucket" "backendBucket" {
+    bucket = "my-tf-test-first-bucket-${random_string.randstr.result}"
+
+    tags = {
+        Name        = "First demo bucket"
+        Environment = "Dev"
+        Owner = "Krutarth Patel"
+    }
+}
+
 # resource "aws_subnet" "public_subnet_1_tf" {
 #   vpc_id = aws_vpc.vpc_tf_dev.id
 #   cidr_block = local.pubic_subnets[0]
